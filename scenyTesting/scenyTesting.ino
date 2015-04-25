@@ -7,12 +7,12 @@ int scentyPin = 8; // closes circuit on transistor
 int buttonPress = 12; // button to affect scentyPin write state
 int buttonState = 0; // button state for checking if pressed
 
-int dmx_[]_
 
-int rgbMode = 218; //dmx channel
-int red = 6; // dmx channel for red
-int green = 7; // dmx channel for green
-int blue = 8; // dmx channel for
+
+//int rgbMode = 218; //dmx channel
+//int red = 6; // dmx channel for red
+//int green = 7; // dmx channel for green
+//int blue = 8; // dmx channel for
 
 int x; // change for debugging
 
@@ -20,6 +20,21 @@ boolean closeEnough = false; // bool for running DMX/Scenty block
 
 int brighten; // number that will grow for dmx fade in
 int dim; // number that will shink for dmx fade out
+
+//dmx fixtures + channels per fixtures
+int fix_1_red = 1;
+int fix_1_green = 2;
+int fix_1_blue = 3;
+int fix_1_white = 4;
+int fix_1_amber = 5;
+int fix_1_uv = 6;
+
+int fix_2_red = 7;
+int fix_2_green = 8;
+int fix_2_blue = 9;
+int fix_2_white = 10;
+int fix_2_amber = 11;
+int fix_2_uv = 12;
 
 
 
@@ -31,9 +46,8 @@ void setup() {
   pinMode(buttonPress, INPUT); // set buttonPress pin as an input
 
   DmxMaster.usePin(3); // set pin for DMX shield
-  DmxMaster.maxChannel(4); // max number of channels for dmx
+  DmxMaster.maxChannel(12); // max number of channels for dmx
 
-2
 }
 
 
@@ -44,60 +58,84 @@ void setup() {
 //run this if the sensor has been triggered
 void isClose () {
 
-  DmxMaster.write(5, rgbMode);
-  DmxMaster.write(red, 255);
-  DmxMaster.write(green, 0);
-  DmxMaster.write(blue, 0);
-  delay(100);
-
-  DmxMaster.write(5, rgbMode);
-  DmxMaster.write(red, 0);
-  DmxMaster.write(green, 255);
-  DmxMaster.write(blue, 0);
-  delay(100);
-
-  DmxMaster.write(5, rgbMode);
-  DmxMaster.write(red, 0);
-  DmxMaster.write(green, 0);
-  DmxMaster.write(blue, 255);
-  delay(100);
-
-  DmxMaster.write(5, rgbMode);
-  DmxMaster.write(red, 0);
-  DmxMaster.write(green, 0);
-  DmxMaster.write(blue, 0);
-  delay(50);
-
-
-  // loop to ramp up 'brighten'
-  for (brighten = 0; brighten <= 255; brighten++) {
+   for (brighten = 0; brighten <= 255; brighten++) {
+    
+    Serial.print("brighten = ");
+    Serial.println(brighten);
 
     //DmxMaster.write([channel],[value]);
-    DmxMaster.write(5, rgbMode);
-    DmxMaster.write(red, brighten);
-    DmxMaster.write(green, brighten);
-    DmxMaster.write(blue, brighten);
+    DmxMaster.write(fix_1_red, brighten);
+    DmxMaster.write(fix_1_green, brighten);
+    DmxMaster.write(fix_1_blue, brighten);
+    DmxMaster.write(fix_1_white, brighten);
+    DmxMaster.write(fix_1_amber, brighten);
+    DmxMaster.write(fix_1_uv, brighten);
+
+    DmxMaster.write(fix_2_red, 80-brighten);
+    DmxMaster.write(fix_2_green, 80-brighten);
+    DmxMaster.write(fix_2_blue, 80-brighten);
+    DmxMaster.write(fix_2_white, 80-brighten);
+    DmxMaster.write(fix_2_amber, 80-brighten);
+    DmxMaster.write(fix_2_uv, 80-brighten); 
+    
+//    DmxMaster.write(fix_3_red, 170-brighten);
+//    DmxMaster.write(fix_3_green, 170-brighten);
+//    DmxMaster.write(fix_3_blue, 170-brighten);
+//    DmxMaster.write(fix_3_white, 170-brighten);
+//    DmxMaster.write(fix_3_amber, 170-brighten);
+//    DmxMaster.write(fix_3_uv, 170-brighten);
+//
+//    DmxMaster.write(fix_4_red, 255-brighten);
+//    DmxMaster.write(fix_4_green, 255-brighten);
+//    DmxMaster.write(fix_4_blue, 255-brighten);
+//    DmxMaster.write(fix_4_white, 180-brighten);
+//    DmxMaster.write(fix_4_amber, 255-brighten);
+//    DmxMaster.write(fix_4_uv, 255-brighten);     
     /* Small delay to slow down the ramping */
     delay(5);
 
   }
+  
+  delay(5000);
+  
+    for (dim = 0; dim <= 255; dim++) {
+      
+      Serial.print("dim = ");
+      Serial.println(dim);
 
-  delay(5000); // wait 5 seconds
-
-  // loop to ramp down 'dim'
-  for (dim = 0; dim <= 255; dim++) {
-
-    //DmxMaster.write([channel],[value]);
-    DmxMaster.write(5, rgbMode);
-    DmxMaster.write(red, 255 - dim);
-    DmxMaster.write(green, 255 - dim);
-    DmxMaster.write(blue, 255 - dim);
-    /* Small delay to slow down the ramping */
+   // DmxMaster.write([channel],[value]);
+    DmxMaster.write(fix_1_red, 255-dim);
+    DmxMaster.write(fix_1_green, 255-dim);
+    DmxMaster.write(fix_1_blue, 255-dim);
+    DmxMaster.write(fix_1_white, 180-dim);
+    DmxMaster.write(fix_1_amber, 255-dim);
+    DmxMaster.write(fix_1_uv, 255-dim);
+    
+    DmxMaster.write(fix_2_red, 170-dim);
+    DmxMaster.write(fix_2_green, 170-dim);
+    DmxMaster.write(fix_2_blue, 170-dim);
+    DmxMaster.write(fix_2_white, 170-dim);
+    DmxMaster.write(fix_2_amber, 170-dim);
+    DmxMaster.write(fix_2_uv, 170-dim);
+    
+//    DmxMaster.write(fix_3_red, 80-dim);
+//    DmxMaster.write(fix_3_green, 80-dim);
+//    DmxMaster.write(fix_3_blue, 80-dim);
+//    DmxMaster.write(fix_3_white, 80-dim);
+//    DmxMaster.write(fix_3_amber, 80-dim);
+//    DmxMaster.write(fix_3_uv, 80-dim);
+//    
+//    DmxMaster.write(fix_4_red, dim);
+//    DmxMaster.write(fix_4_green, dim);
+//    DmxMaster.write(fix_4_blue, dim);
+//    DmxMaster.write(fix_4_white, dim);
+//    DmxMaster.write(fix_4_amber, dim);
+//    DmxMaster.write(fix_4_uv, dim);
+   /* Small delay to slow down the ramping */
     delay(5);
+   
 
-  }
-
-
+ }
 
 
   closeEnough = false;
@@ -146,11 +184,20 @@ void loop() {
   }
   else {
 
-        //DmxMaster.write([channel],[value]);
-    DmxMaster.write(5, rgbMode);
-    DmxMaster.write(red, 0);
-    DmxMaster.write(green, 0);
-    DmxMaster.write(blue, 0);
+  //DmxMaster.write([channel],[value]);
+    DmxMaster.write(fix_1_red, 0);
+    DmxMaster.write(fix_1_green, 0);
+    DmxMaster.write(fix_1_blue, 0);
+    DmxMaster.write(fix_1_white, 180);
+    DmxMaster.write(fix_1_amber, 255);
+    DmxMaster.write(fix_1_uv, 0);
+
+    DmxMaster.write(fix_2_red, 0);
+    DmxMaster.write(fix_2_green, 0);
+    DmxMaster.write(fix_2_blue, 0);
+    DmxMaster.write(fix_2_white, 180);
+    DmxMaster.write(fix_2_amber, 255);
+    DmxMaster.write(fix_2_uv, 0);
   }
 
 }
