@@ -3,10 +3,16 @@
 
 
 // input and output pins
-int scentyPin = 8; // closes circuit on transistor
-int buttonPress = 12; // button to affect scentyPin write state
+#define scentyPin     8 // closes circuit on transistor
+#define TRIGGER_PIN  11  // Arduino pin tied to trigger pin on the ultrasonic sensor.
+#define ECHO_PIN     10  // Arduino pin tied to echo pin on the ultrasonic sensor.
+#define buttonPress  12 // button to affect scentyPin write state
+
 int buttonState = 0; // button state for checking if pressed
 
+#define MAX_uSANCE 400 // Maximum uSance we want to ping for (in centimeters). Maximum sensor uSance is rated at 400-500cm.
+
+NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_uSANCE); // NewPing setup of pins and maximum uSance.
 
 
 //int rgbMode = 218; //dmx channel
@@ -18,8 +24,8 @@ int x; // change for debugging
 
 boolean closeEnough = false; // bool for running DMX/Scenty block
 
-int brighten; // number that will grow for dmx fade in
-int dim; // number that will shink for dmx fade out
+int brighten = 0; // number that will grow for dmx fade in
+int dim = 0; // number that will shink for dmx fade out
 
 //dmx fixtures + channels per fixtures
 int fix_1_red = 1;
@@ -58,7 +64,7 @@ void setup() {
 //run this if the sensor has been triggered
 void isClose () {
 
-   for (brighten = 0; brighten <= 255; brighten++) {
+   for (brighten = 10; brighten < 255; brighten++) {
     
     Serial.print("brighten = ");
     Serial.println(brighten);
@@ -71,12 +77,12 @@ void isClose () {
     DmxMaster.write(fix_1_amber, brighten);
     DmxMaster.write(fix_1_uv, brighten);
 
-    DmxMaster.write(fix_2_red, 80-brighten);
-    DmxMaster.write(fix_2_green, 80-brighten);
-    DmxMaster.write(fix_2_blue, 80-brighten);
-    DmxMaster.write(fix_2_white, 80-brighten);
-    DmxMaster.write(fix_2_amber, 80-brighten);
-    DmxMaster.write(fix_2_uv, 80-brighten); 
+    DmxMaster.write(fix_2_red, brighten);
+    DmxMaster.write(fix_2_green, brighten);
+    DmxMaster.write(fix_2_blue, brighten);
+    DmxMaster.write(fix_2_white, brighten);
+    DmxMaster.write(fix_2_amber, brighten);
+    DmxMaster.write(fix_2_uv, brighten); 
     
 //    DmxMaster.write(fix_3_red, 170-brighten);
 //    DmxMaster.write(fix_3_green, 170-brighten);
@@ -98,7 +104,7 @@ void isClose () {
   
   delay(5000);
   
-    for (dim = 0; dim <= 255; dim++) {
+    for (brighten = 255; dim > 10; dim--) {
       
       Serial.print("dim = ");
       Serial.println(dim);
@@ -107,16 +113,16 @@ void isClose () {
     DmxMaster.write(fix_1_red, 255-dim);
     DmxMaster.write(fix_1_green, 255-dim);
     DmxMaster.write(fix_1_blue, 255-dim);
-    DmxMaster.write(fix_1_white, 180-dim);
+    DmxMaster.write(fix_1_white, 255-dim);
     DmxMaster.write(fix_1_amber, 255-dim);
     DmxMaster.write(fix_1_uv, 255-dim);
     
-    DmxMaster.write(fix_2_red, 170-dim);
-    DmxMaster.write(fix_2_green, 170-dim);
-    DmxMaster.write(fix_2_blue, 170-dim);
-    DmxMaster.write(fix_2_white, 170-dim);
-    DmxMaster.write(fix_2_amber, 170-dim);
-    DmxMaster.write(fix_2_uv, 170-dim);
+    DmxMaster.write(fix_2_red, 255-dim);
+    DmxMaster.write(fix_2_green, 255-dim);
+    DmxMaster.write(fix_2_blue, 255-dim);
+    DmxMaster.write(fix_2_white, 255-dim);
+    DmxMaster.write(fix_2_amber, 255-dim);
+    DmxMaster.write(fix_2_uv, 255-dim);
     
 //    DmxMaster.write(fix_3_red, 80-dim);
 //    DmxMaster.write(fix_3_green, 80-dim);
@@ -148,7 +154,7 @@ void loop() {
 
   delay(50); // Wait 50ms between pings (about 20 pings/sec). 29ms should be the shortest delay between pings.
 
-  unsigned int uS = sonar.ping_in(); // Send ping, get ping time in microseconds (uS).
+ // unsigned int uS = sonar.ping_in(); // Send ping, get ping time in microseconds (uS).
 
 
   Serial.println(x); // read for debugging changed in below statements
@@ -157,15 +163,18 @@ void loop() {
   if (buttonState == HIGH) {
     digitalWrite(scentyPin, HIGH);
     x = 1;
+    
+    closeEnough = true;
   }
 
   //if button isn't pressed no scenty
   else {
     digitalWrite(scentyPin, LOW);
     x = 0;
+    closeEnough = false;
   }
   
-   if (uS < 50 ) {
+/*   if (uS < 50 ) {
 
     closeEnough = true;
 
@@ -176,7 +185,7 @@ void loop() {
     closeEnough = false;
 
   }
-
+*/
   if (closeEnough == true) {
 
       isClose();
@@ -184,20 +193,21 @@ void loop() {
   }
   else {
 
-  //DmxMaster.write([channel],[value]);
-    DmxMaster.write(fix_1_red, 0);
-    DmxMaster.write(fix_1_green, 0);
-    DmxMaster.write(fix_1_blue, 0);
-    DmxMaster.write(fix_1_white, 180);
-    DmxMaster.write(fix_1_amber, 255);
-    DmxMaster.write(fix_1_uv, 0);
 
-    DmxMaster.write(fix_2_red, 0);
-    DmxMaster.write(fix_2_green, 0);
-    DmxMaster.write(fix_2_blue, 0);
-    DmxMaster.write(fix_2_white, 180);
-    DmxMaster.write(fix_2_amber, 255);
-    DmxMaster.write(fix_2_uv, 0);
+  //DmxMaster.write([channel],[value]);
+    DmxMaster.write(fix_1_red, 10);
+    DmxMaster.write(fix_1_green, 10);
+    DmxMaster.write(fix_1_blue, 10);
+    DmxMaster.write(fix_1_white, 10);
+    DmxMaster.write(fix_1_amber, 10);
+    DmxMaster.write(fix_1_uv, 10);
+
+    DmxMaster.write(fix_2_red, 10);
+    DmxMaster.write(fix_2_green, 10);
+    DmxMaster.write(fix_2_blue, 10);
+    DmxMaster.write(fix_2_white, 10);
+    DmxMaster.write(fix_2_amber, 10);
+    DmxMaster.write(fix_2_uv, 10);
   }
 
 }
