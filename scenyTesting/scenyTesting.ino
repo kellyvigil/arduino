@@ -63,8 +63,10 @@ void setup() {
 
 //run this if the sensor has been triggered
 void isClose () {
+  
+  Serial.println("Going Up");
 
-   for (brighten = 10; brighten < 255; brighten++) {
+  for (brighten = 10; brighten < 255; brighten++) {
     
     Serial.print("brighten = ");
     Serial.println(brighten);
@@ -82,88 +84,104 @@ void isClose () {
     DmxMaster.write(fix_2_blue, brighten);
     DmxMaster.write(fix_2_white, brighten);
     DmxMaster.write(fix_2_amber, brighten);
-    DmxMaster.write(fix_2_uv, brighten); 
-    
-//    DmxMaster.write(fix_3_red, 170-brighten);
-//    DmxMaster.write(fix_3_green, 170-brighten);
-//    DmxMaster.write(fix_3_blue, 170-brighten);
-//    DmxMaster.write(fix_3_white, 170-brighten);
-//    DmxMaster.write(fix_3_amber, 170-brighten);
-//    DmxMaster.write(fix_3_uv, 170-brighten);
-//
-//    DmxMaster.write(fix_4_red, 255-brighten);
-//    DmxMaster.write(fix_4_green, 255-brighten);
-//    DmxMaster.write(fix_4_blue, 255-brighten);
-//    DmxMaster.write(fix_4_white, 180-brighten);
-//    DmxMaster.write(fix_4_amber, 255-brighten);
-//    DmxMaster.write(fix_4_uv, 255-brighten);     
+    DmxMaster.write(fix_2_uv, brighten);
+
+    //    DmxMaster.write(fix_3_red, 170-brighten);
+    //    DmxMaster.write(fix_3_green, 170-brighten);
+    //    DmxMaster.write(fix_3_blue, 170-brighten);
+    //    DmxMaster.write(fix_3_white, 170-brighten);
+    //    DmxMaster.write(fix_3_amber, 170-brighten);
+    //    DmxMaster.write(fix_3_uv, 170-brighten);
+    //
+    //    DmxMaster.write(fix_4_red, 255-brighten);
+    //    DmxMaster.write(fix_4_green, 255-brighten);
+    //    DmxMaster.write(fix_4_blue, 255-brighten);
+    //    DmxMaster.write(fix_4_white, 180-brighten);
+    //    DmxMaster.write(fix_4_amber, 255-brighten);
+    //    DmxMaster.write(fix_4_uv, 255-brighten);
     /* Small delay to slow down the ramping */
     delay(5);
 
   }
   
+  Serial.println("Done Going Up");
+  Serial.println("Hold for 5 seconds");
   delay(5000);
+  Serial.println("Going Down");
   
-    for (brighten = 255; dim > 10; dim--) {
-      
-      Serial.print("dim = ");
-      Serial.println(dim);
 
-   // DmxMaster.write([channel],[value]);
-    DmxMaster.write(fix_1_red, 255-dim);
-    DmxMaster.write(fix_1_green, 255-dim);
-    DmxMaster.write(fix_1_blue, 255-dim);
-    DmxMaster.write(fix_1_white, 255-dim);
-    DmxMaster.write(fix_1_amber, 255-dim);
-    DmxMaster.write(fix_1_uv, 255-dim);
-    
-    DmxMaster.write(fix_2_red, 255-dim);
-    DmxMaster.write(fix_2_green, 255-dim);
-    DmxMaster.write(fix_2_blue, 255-dim);
-    DmxMaster.write(fix_2_white, 255-dim);
-    DmxMaster.write(fix_2_amber, 255-dim);
-    DmxMaster.write(fix_2_uv, 255-dim);
-    
-//    DmxMaster.write(fix_3_red, 80-dim);
-//    DmxMaster.write(fix_3_green, 80-dim);
-//    DmxMaster.write(fix_3_blue, 80-dim);
-//    DmxMaster.write(fix_3_white, 80-dim);
-//    DmxMaster.write(fix_3_amber, 80-dim);
-//    DmxMaster.write(fix_3_uv, 80-dim);
-//    
-//    DmxMaster.write(fix_4_red, dim);
-//    DmxMaster.write(fix_4_green, dim);
-//    DmxMaster.write(fix_4_blue, dim);
-//    DmxMaster.write(fix_4_white, dim);
-//    DmxMaster.write(fix_4_amber, dim);
-//    DmxMaster.write(fix_4_uv, dim);
-   /* Small delay to slow down the ramping */
+  for (dim = 255; dim > 10; dim--) {
+
+    Serial.print("dim = ");
+    Serial.println(dim);
+
+    // DmxMaster.write([channel],[value]);
+    DmxMaster.write(fix_1_red, dim);
+    DmxMaster.write(fix_1_green, dim);
+    DmxMaster.write(fix_1_blue, dim);
+    DmxMaster.write(fix_1_white, dim);
+    DmxMaster.write(fix_1_amber, dim);
+    DmxMaster.write(fix_1_uv, dim);
+
+    DmxMaster.write(fix_2_red, dim);
+    DmxMaster.write(fix_2_green, dim);
+    DmxMaster.write(fix_2_blue, dim);
+    DmxMaster.write(fix_2_white, dim);
+    DmxMaster.write(fix_2_amber, dim);
+    DmxMaster.write(fix_2_uv, dim);
+
+    //    DmxMaster.write(fix_3_red, 80-dim);
+    //    DmxMaster.write(fix_3_green, 80-dim);
+    //    DmxMaster.write(fix_3_blue, 80-dim);
+    //    DmxMaster.write(fix_3_white, 80-dim);
+    //    DmxMaster.write(fix_3_amber, 80-dim);
+    //    DmxMaster.write(fix_3_uv, 80-dim);
+    //
+    //    DmxMaster.write(fix_4_red, dim);
+    //    DmxMaster.write(fix_4_green, dim);
+    //    DmxMaster.write(fix_4_blue, dim);
+    //    DmxMaster.write(fix_4_white, dim);
+    //    DmxMaster.write(fix_4_amber, dim);
+    //    DmxMaster.write(fix_4_uv, dim);
+    /* Small delay to slow down the ramping */
     delay(5);
-   
-
- }
 
 
+  }
+
+  
   closeEnough = false;
+  Serial.println("done with the sequence");
+  
 
 }
 
+
+
+
+////////////////// MAIN LOOP ////////////////////////////////////
+
+
 void loop() {
+
+
 
   buttonState = digitalRead(buttonPress); // look at the read of buttonPress and call it buttonState
 
   delay(50); // Wait 50ms between pings (about 20 pings/sec). 29ms should be the shortest delay between pings.
 
- // unsigned int uS = sonar.ping_in(); // Send ping, get ping time in microseconds (uS).
+  unsigned int uS = sonar.ping_in(); // Send ping, get ping time in microseconds (uS).
 
+  Serial.print("Distance = ");
+  Serial.println(uS);
 
-  Serial.println(x); // read for debugging changed in below statements
+  //Serial.println(x); // read for debugging changed in below statements
 
   // press button go scenty
   if (buttonState == HIGH) {
     digitalWrite(scentyPin, HIGH);
     x = 1;
-    
+
     closeEnough = true;
   }
 
@@ -173,10 +191,11 @@ void loop() {
     x = 0;
     closeEnough = false;
   }
-  
-/*   if (uS < 50 ) {
+
+  if (uS < 50 ) {
 
     closeEnough = true;
+    Serial.println("closeEnough = true");
 
   }
 
@@ -185,16 +204,18 @@ void loop() {
     closeEnough = false;
 
   }
-*/
-  if (closeEnough == true) {
 
-      isClose();
+  if (closeEnough == true) {
+    
+    Serial.println("running isClose right now");
+    isClose();
+
 
   }
   else {
 
 
-  //DmxMaster.write([channel],[value]);
+    //DmxMaster.write([channel],[value]);
     DmxMaster.write(fix_1_red, 10);
     DmxMaster.write(fix_1_green, 10);
     DmxMaster.write(fix_1_blue, 10);
