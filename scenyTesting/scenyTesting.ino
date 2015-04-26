@@ -3,10 +3,11 @@
 
 
 // input and output pins
+#define buttonPress   4 // button to affect scentyPin write state
+#define ECHO_PIN      11 // Arduino pin tied to echo pin on the ultrasonic sensor.
+#define TRIGGER_PIN   12 // Arduino pin tied to trigger pin on the ultrasonic sensor.
 #define scentyPin     8 // closes circuit on transistor
-#define TRIGGER_PIN  11  // Arduino pin tied to trigger pin on the ultrasonic sensor.
-#define ECHO_PIN     10  // Arduino pin tied to echo pin on the ultrasonic sensor.
-#define buttonPress  12 // button to affect scentyPin write state
+#define ledPin        9
 
 int buttonState = 0; // button state for checking if pressed
 
@@ -193,14 +194,15 @@ void loop() {
   }
 
   if (uS < 50 ) {
-
+    digitalWrite(scentyPin, HIGH);
     closeEnough = true;
     Serial.println("closeEnough = true");
 
   }
 
   else {
-
+    
+    digitalWrite(scentyPin, LOW);
     closeEnough = false;
 
   }
