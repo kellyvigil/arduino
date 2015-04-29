@@ -77,9 +77,9 @@ int uv_B;
 //color values
 
 //color_A
-int r_A = 255;
-int g_A = 255;
-int b_A = 255;
+int r_A = 0;
+int g_A = 0;
+int b_A = 0;
 int a_A = 0;
 int w_A = 255;
 int i_A = 0;
@@ -89,8 +89,8 @@ int u_A = 0;
 int r_B = 0;
 int g_B = 0;
 int b_B = 0;
-int a_B = 212;
-int w_B = 121;
+int a_B = 0;
+int w_B = 255;
 int i_B = 0;
 int u_B = 0;
 
@@ -111,10 +111,26 @@ int comb_a;
 int comb_w;
 int comb_u;
 
+//color ballancing
+
+int strip_r = 0;
+int strip_g = 0;
+int strip_b = 0;
+int strip_a = 0;
+int strip_w = 0;
+int strip_i = 0;
+
+int par_r = 50;
+int par_g = 50;
+int par_b = 0;
+int par_a = 140;
+int par_w = 0;
+int par_u = 0;
+
 
 
 //fade controlls
-float loopSpeed = .005; //increase amount <--- use this to control rate of fade up and down
+float loopSpeed = .001; //increase amount <--- use this to control rate of fade up and down
 int delaySpeed = 5; //ms
 
 
@@ -235,38 +251,81 @@ void printCombColors() {
 void staticColors() {
 
 
+//************************  COLOR A ************************ 
+
+  /*
 
   // Fixture 1 values
-  DmxMaster.write(fix_1_red, r_A);
-  DmxMaster.write(fix_1_green, g_A);
-  DmxMaster.write(fix_1_blue, b_A);
-  DmxMaster.write(fix_1_amber, a_A);
-  DmxMaster.write(fix_1_white, w_A);
-  DmxMaster.write(fix_1_ints, i_A);
+    DmxMaster.write(fix_1_red, r_A + strip_r);
+    DmxMaster.write(fix_1_green, g_A + strip_g);
+    DmxMaster.write(fix_1_blue, b_A + strip_b);
+    DmxMaster.write(fix_1_amber, a_A + strip_a);
+    DmxMaster.write(fix_1_white, w_A + strip_w);
+    DmxMaster.write(fix_1_ints, i_A + strip_r);
 
-  // Fixture 2 values
-  DmxMaster.write(fix_2_red, r_B);
-  DmxMaster.write(fix_2_green, g_B);
-  DmxMaster.write(fix_2_blue, b_B);
-  DmxMaster.write(fix_2_amber, a_B);
-  DmxMaster.write(fix_2_white, w_B);
-  DmxMaster.write(fix_2_ints, i_B);
+    // Fixture 2 values
+    DmxMaster.write(fix_2_red, r_A + strip_r);
+    DmxMaster.write(fix_2_green, g_A + strip_g);
+    DmxMaster.write(fix_2_blue, b_A + strip_b);
+    DmxMaster.write(fix_2_amber, a_A + strip_a);
+    DmxMaster.write(fix_2_white, w_A + strip_w);
+    DmxMaster.write(fix_2_ints, i_A + strip_r);
 
-  // Fixture 3 values
-  DmxMaster.write(fix_3_red, r_A);
-  DmxMaster.write(fix_3_green, g_A);
-  DmxMaster.write(fix_3_blue, b_A);
-  DmxMaster.write(fix_3_amber, a_A);
-  DmxMaster.write(fix_3_white, w_A);
-  //DmxMaster.write(fix_3_ints, i_A);
+    // Fixture 3 values
+    DmxMaster.write(fix_3_red, r_A + par_r);
+    DmxMaster.write(fix_3_green, g_A + par_g);
+    DmxMaster.write(fix_3_blue, b_A + par_b);
+    DmxMaster.write(fix_3_white, w_A + par_w);
+    DmxMaster.write(fix_3_amber, a_A + par_a);
+    DmxMaster.write(fix_3_uv, u_A + par_u);
 
-  // Fixture 4 values
-  DmxMaster.write(fix_4_red, r_B);
-  DmxMaster.write(fix_4_green, g_B);
-  DmxMaster.write(fix_4_blue, b_B);
-  DmxMaster.write(fix_4_amber, a_B);
-  DmxMaster.write(fix_4_white, w_B);
-  //DmxMaster.write(fix_4_ints, i_B);
+    // Fixture 4 values
+    DmxMaster.write(fix_3_red, r_A + par_r);
+    DmxMaster.write(fix_3_green, g_A + par_g);
+    DmxMaster.write(fix_3_blue, b_A + par_b);
+    DmxMaster.write(fix_3_white, w_A + par_w);
+    DmxMaster.write(fix_3_amber, a_A + par_a);
+    DmxMaster.write(fix_3_uv, u_A + par_u);
+    
+    */
+//************************  COLOR B ************************ 
+
+
+
+
+
+  // Fixture 1 values
+    DmxMaster.write(fix_1_red, r_B + strip_r);
+    DmxMaster.write(fix_1_green, g_B + strip_g);
+    DmxMaster.write(fix_1_blue, b_B + strip_b);
+    DmxMaster.write(fix_1_amber, a_B + strip_a);
+    DmxMaster.write(fix_1_white, w_B + strip_w);
+    DmxMaster.write(fix_1_ints, i_B + strip_i);
+
+    // Fixture 2 values
+    DmxMaster.write(fix_2_red, r_B + strip_r);
+    DmxMaster.write(fix_2_green, g_B + strip_g);
+    DmxMaster.write(fix_2_blue, b_B + strip_b);
+    DmxMaster.write(fix_2_amber, a_B + strip_a);
+    DmxMaster.write(fix_2_white, w_B + strip_w);
+    DmxMaster.write(fix_2_ints, i_B + strip_i);
+
+    // Fixture 3 values
+    DmxMaster.write(fix_3_red, r_B + par_r);
+    DmxMaster.write(fix_3_green, g_B + par_g);
+    DmxMaster.write(fix_3_blue, b_B + par_b);
+    DmxMaster.write(fix_3_white, w_B + par_w);
+    DmxMaster.write(fix_3_amber, a_B + par_a);
+    DmxMaster.write(fix_3_uv, u_B + par_u);
+
+    // Fixture 4 values
+    DmxMaster.write(fix_4_red, r_B + par_r);
+    DmxMaster.write(fix_4_green, g_B + par_g);
+    DmxMaster.write(fix_4_blue, b_B + par_b);
+    DmxMaster.write(fix_4_white, w_B + par_w);
+    DmxMaster.write(fix_4_amber, a_B + par_a);
+    DmxMaster.write(fix_4_uv, u_B + par_u);
+
 
 
 }
@@ -289,7 +348,7 @@ void fadeUpDown() {
 
   Serial.println("running fadeUpDown");
 
-  for (dmxLevelUp = 0; dmxLevelUp <= 1.0; dmxLevelUp += loopSpeed) {
+  for (dmxLevelUp = .9; dmxLevelUp <= 1.0; dmxLevelUp += loopSpeed) {
 
     //color_A
     red_A = (int) (dmxLevelUp * r_A);
@@ -318,36 +377,38 @@ void fadeUpDown() {
 
 
     // Fixture 1 values
-    DmxMaster.write(fix_1_red, red_A);
-    DmxMaster.write(fix_1_green, green_A);
-    DmxMaster.write(fix_1_blue, blue_A);
-    DmxMaster.write(fix_1_amber, amber_A);
-    DmxMaster.write(fix_1_white, white_A);
-    DmxMaster.write(fix_1_ints, ints_A);
+    DmxMaster.write(fix_1_red, red_A + strip_r);
+    DmxMaster.write(fix_1_green, green_A + strip_g);
+    DmxMaster.write(fix_1_blue, blue_A + strip_b);
+    DmxMaster.write(fix_1_amber, amber_A + strip_a);
+    DmxMaster.write(fix_1_white, white_A + strip_w);
+    DmxMaster.write(fix_1_ints, ints_A + strip_i);
 
     // Fixture 2 values
-    DmxMaster.write(fix_2_red, red_A);
-    DmxMaster.write(fix_2_green, green_A);
-    DmxMaster.write(fix_2_blue, blue_A);
-    DmxMaster.write(fix_2_amber, amber_A);
-    DmxMaster.write(fix_2_white, white_A);
-    DmxMaster.write(fix_2_ints, ints_A);
-
+    DmxMaster.write(fix_2_red, red_A + strip_r);
+    DmxMaster.write(fix_2_green, green_A + strip_g);
+    DmxMaster.write(fix_2_blue, blue_A + strip_b);
+    DmxMaster.write(fix_2_amber, amber_A + strip_a);
+    DmxMaster.write(fix_2_white, white_A + strip_w);
+    DmxMaster.write(fix_2_ints, ints_A + strip_i);
+    
     // Fixture 3 values
-    DmxMaster.write(fix_3_red, red_A);
-    DmxMaster.write(fix_3_green, green_A);
-    DmxMaster.write(fix_3_blue, blue_A);
-    DmxMaster.write(fix_3_white, white_A);
-    DmxMaster.write(fix_3_amber, amber_A);
-    DmxMaster.write(fix_3_uv, uv_A);
+    DmxMaster.write(fix_3_red, red_A + par_r);
+    DmxMaster.write(fix_3_green, green_A + par_g);
+    DmxMaster.write(fix_3_blue, blue_A + par_g);
+    DmxMaster.write(fix_3_white, white_A + par_w);
+    DmxMaster.write(fix_3_amber, amber_A + par_a);
+    DmxMaster.write(fix_3_uv, uv_A + par_u);
 
     // Fixture 4 values
-    DmxMaster.write(fix_4_red, red_A);
-    DmxMaster.write(fix_4_green, blue_A);
-    DmxMaster.write(fix_4_blue, green_A);
-    DmxMaster.write(fix_4_white, white_A);
-    DmxMaster.write(fix_4_amber, amber_A);
-    DmxMaster.write(fix_4_uv, uv_A);
+    DmxMaster.write(fix_4_red, red_A + par_r);
+    DmxMaster.write(fix_4_green, green_A + par_g);
+    DmxMaster.write(fix_4_blue, blue_A + par_g);
+    DmxMaster.write(fix_4_white, white_A + par_w);
+    DmxMaster.write(fix_4_amber, amber_A + par_a);
+    DmxMaster.write(fix_4_uv, uv_A + par_u);
+
+
 
     delay(delaySpeed);
 
@@ -355,7 +416,7 @@ void fadeUpDown() {
 
   delay(2000);
 
-  for (dmxLevelDown = 1; dmxLevelDown >= 0; dmxLevelDown -= loopSpeed) {
+  for (dmxLevelDown = 1; dmxLevelDown >= .9; dmxLevelDown -= loopSpeed) {
 
 
     red_A = (int) (dmxLevelDown * r_A);
@@ -383,34 +444,37 @@ void fadeUpDown() {
 
 
     // Fixture 1 values
-    DmxMaster.write(fix_1_red, red_A);
-    DmxMaster.write(fix_1_green, green_A);
-    DmxMaster.write(fix_1_blue, blue_A);
-    DmxMaster.write(fix_1_amber, amber_A);
-    DmxMaster.write(fix_1_white, white_A);
+    DmxMaster.write(fix_1_red, red_A + strip_r);
+    DmxMaster.write(fix_1_green, green_A + strip_g);
+    DmxMaster.write(fix_1_blue, blue_A + strip_b);
+    DmxMaster.write(fix_1_amber, amber_A + strip_a);
+    DmxMaster.write(fix_1_white, white_A + strip_w);
+    DmxMaster.write(fix_1_ints, ints_A + strip_i);
 
     // Fixture 2 values
-    DmxMaster.write(fix_2_red, red_A);
-    DmxMaster.write(fix_2_green, green_A);
-    DmxMaster.write(fix_2_blue, blue_A);
-    DmxMaster.write(fix_2_amber, amber_A);
-    DmxMaster.write(fix_2_white, white_A);
+    DmxMaster.write(fix_2_red, red_A + strip_r);
+    DmxMaster.write(fix_2_green, green_A + strip_g);
+    DmxMaster.write(fix_2_blue, blue_A + strip_b);
+    DmxMaster.write(fix_2_amber, amber_A + strip_a);
+    DmxMaster.write(fix_2_white, white_A + strip_w);
+    DmxMaster.write(fix_2_ints, ints_A + strip_i);
 
     // Fixture 3 values
-    DmxMaster.write(fix_3_red, red_A);
-    DmxMaster.write(fix_3_green, green_A);
-    DmxMaster.write(fix_3_blue, blue_A);
-    DmxMaster.write(fix_3_white, white_A);
-    DmxMaster.write(fix_3_amber, amber_A);
-    DmxMaster.write(fix_3_uv, uv_A);
+    DmxMaster.write(fix_3_red, red_A + par_r);
+    DmxMaster.write(fix_3_green, green_A + par_g);
+    DmxMaster.write(fix_3_blue, blue_A + par_g);
+    DmxMaster.write(fix_3_white, white_A + par_w);
+    DmxMaster.write(fix_3_amber, amber_A + par_a);
+    DmxMaster.write(fix_3_uv, uv_A + par_u);
 
     // Fixture 4 values
-    DmxMaster.write(fix_4_red, red_A);
-    DmxMaster.write(fix_4_green, blue_A);
-    DmxMaster.write(fix_4_blue, green_A);
-    DmxMaster.write(fix_4_white, white_A);
-    DmxMaster.write(fix_4_amber, amber_A);
-    DmxMaster.write(fix_4_uv, uv_A);
+    DmxMaster.write(fix_4_red, red_A + par_r);
+    DmxMaster.write(fix_4_green, green_A + par_g);
+    DmxMaster.write(fix_4_blue, blue_A + par_g);
+    DmxMaster.write(fix_4_white, white_A + par_w);
+    DmxMaster.write(fix_4_amber, amber_A + par_a);
+    DmxMaster.write(fix_4_uv, uv_A + par_u);
+    
     delay(delaySpeed);
 
   }
@@ -607,8 +671,11 @@ void loop() {
 
 
 
+ // staticColors();
+  
   fadeUpDown();
-
+  
+ // fadeBetween();
 
 
 
