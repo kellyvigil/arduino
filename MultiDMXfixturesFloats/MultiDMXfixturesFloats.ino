@@ -116,21 +116,21 @@ int comb_u;
 int strip_r = 0;
 int strip_g = 0;
 int strip_b = 0;
-int strip_a = 0;
+int strip_a = 20;
 int strip_w = 0;
 int strip_i = 0;
 
-int par_r = 50;
-int par_g = 50;
+int par_r = 70;
+int par_g = 0;
 int par_b = 0;
-int par_a = 140;
+int par_a = 180;
 int par_w = 0;
 int par_u = 0;
 
 
 
 //fade controlls
-float loopSpeed = .001; //increase amount <--- use this to control rate of fade up and down
+float loopSpeed = .005; //increase amount <--- use this to control rate of fade up and down
 int delaySpeed = 5; //ms
 
 
@@ -253,7 +253,7 @@ void staticColors() {
 
 //************************  COLOR A ************************ 
 
-  /*
+  
 
   // Fixture 1 values
     DmxMaster.write(fix_1_red, r_A + strip_r);
@@ -262,7 +262,7 @@ void staticColors() {
     DmxMaster.write(fix_1_amber, a_A + strip_a);
     DmxMaster.write(fix_1_white, w_A + strip_w);
     DmxMaster.write(fix_1_ints, i_A + strip_r);
-
+/*
     // Fixture 2 values
     DmxMaster.write(fix_2_red, r_A + strip_r);
     DmxMaster.write(fix_2_green, g_A + strip_g);
@@ -270,7 +270,7 @@ void staticColors() {
     DmxMaster.write(fix_2_amber, a_A + strip_a);
     DmxMaster.write(fix_2_white, w_A + strip_w);
     DmxMaster.write(fix_2_ints, i_A + strip_r);
-
+*/
     // Fixture 3 values
     DmxMaster.write(fix_3_red, r_A + par_r);
     DmxMaster.write(fix_3_green, g_A + par_g);
@@ -287,11 +287,11 @@ void staticColors() {
     DmxMaster.write(fix_3_amber, a_A + par_a);
     DmxMaster.write(fix_3_uv, u_A + par_u);
     
-    */
+    
 //************************  COLOR B ************************ 
 
 
-
+/*
 
 
   // Fixture 1 values
@@ -325,7 +325,7 @@ void staticColors() {
     DmxMaster.write(fix_4_white, w_B + par_w);
     DmxMaster.write(fix_4_amber, a_B + par_a);
     DmxMaster.write(fix_4_uv, u_B + par_u);
-
+*/
 
 
 }
@@ -348,7 +348,7 @@ void fadeUpDown() {
 
   Serial.println("running fadeUpDown");
 
-  for (dmxLevelUp = .9; dmxLevelUp <= 1.0; dmxLevelUp += loopSpeed) {
+  for (dmxLevelUp = .8; dmxLevelUp <= 1.0; dmxLevelUp += loopSpeed) {
 
     //color_A
     red_A = (int) (dmxLevelUp * r_A);
@@ -416,7 +416,7 @@ void fadeUpDown() {
 
   delay(2000);
 
-  for (dmxLevelDown = 1; dmxLevelDown >= .9; dmxLevelDown -= loopSpeed) {
+  for (dmxLevelDown = 1; dmxLevelDown >= .8; dmxLevelDown -= loopSpeed) {
 
 
     red_A = (int) (dmxLevelDown * r_A);
@@ -671,7 +671,7 @@ void loop() {
 
 
 
- // staticColors();
+  //staticColors();
   
   fadeUpDown();
   
