@@ -144,7 +144,7 @@ void setup() {
   ** easily change the number of channels sent here. If you don't
   ** do this, DmxMaster will set the maximum channel number to the
   ** highest channel you DmxMaster.write() to. */
-  DmxMaster.maxChannel(24);
+  DmxMaster.maxChannel(65);
 
   Serial.begin (57600);
 }
