@@ -262,7 +262,7 @@ void staticColors() {
     DmxMaster.write(fix_1_amber, a_A + strip_a);
     DmxMaster.write(fix_1_white, w_A + strip_w);
     DmxMaster.write(fix_1_ints, i_A + strip_r);
-/*
+
     // Fixture 2 values
     DmxMaster.write(fix_2_red, r_A + strip_r);
     DmxMaster.write(fix_2_green, g_A + strip_g);
@@ -270,7 +270,7 @@ void staticColors() {
     DmxMaster.write(fix_2_amber, a_A + strip_a);
     DmxMaster.write(fix_2_white, w_A + strip_w);
     DmxMaster.write(fix_2_ints, i_A + strip_r);
-*/
+
     // Fixture 3 values
     DmxMaster.write(fix_3_red, r_A + par_r);
     DmxMaster.write(fix_3_green, g_A + par_g);
@@ -671,9 +671,9 @@ void loop() {
 
 
 
-  //staticColors();
+  staticColors();
   
-  fadeUpDown();
+  //fadeUpDown();
   
  // fadeBetween();
 
